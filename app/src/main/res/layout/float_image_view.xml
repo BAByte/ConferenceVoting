@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:elevation="@dimen/size_1a"
+    android:background="@drawable/float_image_bg">
+
+    <ImageView
+        android:rotation="-90"
+        android:scaleType="fitXY"
+        android:padding="@dimen/size_1a"
+        android:layout_width="@dimen/size_6a"
+        android:layout_height="@dimen/size_6a"
+        android:src="@drawable/ic_float_vote"/>
+</LinearLayout>

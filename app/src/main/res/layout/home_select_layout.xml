@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="data"
+            type="com.cvte.maxhub.mvvmsample.viewmodels.HomeViewModel.FunctionBean" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="@dimen/size_16a"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/size_6a"
+        android:orientation="vertical">
+
+        <ImageView
+            android:scaleType="fitXY"
+            android:id="@+id/home_function_img"
+            android:layout_width="@dimen/size_16a"
+            android:layout_height="@dimen/size_16a"
+            app:imageFromID="@{data.imageId}" />
+
+        <TextView
+            android:id="@+id/home_function_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@{data.text}"
+            android:textColor="@color/text_2222222"
+            android:textSize="@dimen/text_size_2a" />
+
+        <CheckBox
+            android:layout_marginTop="@dimen/size_1a"
+            android:checked="@={data.choice}"
+            android:id="@+id/check_box"
+            style="@style/CustomCheckBoxTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal" />
+
+    </LinearLayout>
+</layout>

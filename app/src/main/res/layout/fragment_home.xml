@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <FrameLayout
+        android:layout_width="@dimen/size_100a"
+        android:layout_height="@dimen/size_60a"
+        android:layout_margin="@dimen/size_2a"
+        android:background="@drawable/card_bg"
+        android:elevation="@dimen/size_1a"
+        tools:context=".HomeFragment">
+
+        <LinearLayout
+            android:layout_marginTop="@dimen/size_4a"
+            android:layout_marginStart="@dimen/size_3a"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:src="@drawable/ic_home_tips"
+                android:layout_width="@dimen/size_10a"
+                android:layout_height="@dimen/size_10a"/>
+            <TextView
+                android:textColor="@color/text_2222222"
+                android:textSize="@dimen/text_size_3a"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/home_tips"/>
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/close_btn"
+            android:layout_width="@dimen/size_3a"
+            android:layout_height="@dimen/size_3a"
+            android:layout_gravity="end"
+            android:layout_margin="@dimen/size_2a"
+            android:src="@drawable/ic_close" />
+
+        <LinearLayout
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+
+            <include layout="@layout/home_select_layout"
+                android:id="@+id/realtime"/>
+
+            <include layout="@layout/home_select_layout"
+                android:id="@+id/anonymous"/>
+
+            <include layout="@layout/home_select_layout"
+                android:id="@+id/location"/>
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/next"
+            android:src="@drawable/ic_next"
+            android:layout_width="@dimen/size_10a"
+            android:layout_height="@dimen/size_10a"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_marginBottom="@dimen/size_3a" />
+    </FrameLayout>
+</layout>

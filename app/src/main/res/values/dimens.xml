@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--8倍数原则 a=8 -->
+<resources>
+
+
+    <dimen name="size_1a">8dp</dimen>
+    <dimen name="size_2a">16dp</dimen>
+    <dimen name="size_3a">24dp</dimen>
+    <dimen name="size_4a">32dp</dimen>
+    <dimen name="size_5a">40dp</dimen>
+    <dimen name="size_6a">48dp</dimen>
+    <dimen name="size_10a">80dp</dimen>
+    <dimen name="size_12a">96dp</dimen>
+    <dimen name="size_16a">128dp</dimen>
+    <dimen name="size_18a">144dp</dimen>
+    <dimen name="size_25a">200dp</dimen>
+    <dimen name="size_29a">232dp</dimen>
+    <dimen name="size_31a">248dp</dimen>
+    <dimen name="size_37a">296dp</dimen>
+    <dimen name="size_42a">336dp</dimen>
+    <dimen name="size_60a">480dp</dimen>
+    <dimen name="size_64a">512dp</dimen>
+    <dimen name="size_100a">800dp</dimen>
+    <dimen name="size_104a">832dp</dimen>
+
+
+    <dimen name="text_size_1a">8sp</dimen>
+    <dimen name="text_size_2a">16sp</dimen>
+    <dimen name="text_size_3a">24sp</dimen>
+    <dimen name="text_size_4a">32sp</dimen>
+    <dimen name="text_size_5a">40sp</dimen>
+
+    <dimen name="check_box_height">4dp</dimen>
+    <dimen name="NumberPickerH">74dp</dimen>
+    <dimen name="NumberPickerW">190dp</dimen>
+    <dimen name="NumberPickerDivDistance">96dp</dimen>
+    <dimen name="dividerThickness">4dp</dimen>
+    <dimen name="numberPickerLayoutW">400dp</dimen>
+
+</resources>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorPrimary">#7066e8</color>
+    <color name="colorPrimaryDark">#7066e8</color>
     <color name="colorAccent">#D81B60</color>
     <color name="white">#ffffff</color>
     <color name="checkbox_color">#7934FF</color>
@@ -10,7 +10,8 @@
     <color name="transparent_green">#0000FF0E</color>
     <color name="transparent_white">#ECFFFFFF</color>
     <color name="text_2222222">#222222</color>
-    <color name="text_up">#5f81ff</color>
-
+    <color name="hint_text">#606060</color>
+    <color name="text_up_next">#5f81ff</color>
+    <color name="voting_content_bg">#f5f4fa</color>
     <color name="text_1111111">#111111</color>
 </resources>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="number"
+            type="String" />
+        <variable
+            name="content"
+            type="com.cvte.maxhub.mvvmsample.models.data.VotingContent" />
+    </data>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/size_6a"
+    android:layout_marginStart="@dimen/size_2a"
+    android:layout_marginTop="@dimen/size_3a"
+    android:layout_marginEnd="@dimen/size_2a"
+    android:background="@drawable/voting_content_bg"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:layout_marginStart="@dimen/size_3a"
+        android:layout_gravity="center_vertical"
+        android:layout_width="@dimen/size_4a"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_select" />
+    <TextView
+        android:textColor="@color/text_2222222"
+        android:layout_marginStart="@dimen/size_1a"
+        android:layout_marginEnd="@dimen/size_1a"
+        android:layout_gravity="center_vertical"
+        android:textSize="@dimen/text_size_3a"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@{number}"/>
+
+    <EditText
+        android:background="@null"
+        android:textColorHint="@color/hint_text"
+        android:textColor="@color/text_2222222"
+        android:text="@={content.content}"
+        android:layout_marginStart="@dimen/size_1a"
+        android:layout_marginEnd="@dimen/size_1a"
+        android:inputType="text"
+        android:textSize="@dimen/voting_content_text_size"
+        android:hint="@string/voting_content_hint"
+        android:maxLength="15"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:autofillHints="@string/voting_content_hint" />
+
+    <ImageView
+        android:id="@+id/voice"
+        android:layout_marginEnd="@dimen/size_3a"
+        android:layout_gravity="center_vertical"
+        android:layout_width="@dimen/size_3a"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_voice" />
+
+</LinearLayout>
+</layout>

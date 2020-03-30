@@ -8,21 +8,23 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.NavHostFragment
-import com.cvte.maxhub.mvvmsample.databinding.FragmentSetPeopleNumBinding
+import com.cvte.maxhub.mvvmsample.adapters.SetVotingContentAdapter
+import com.cvte.maxhub.mvvmsample.databinding.FragmentSetVotingContentBinding
 import com.cvte.maxhub.mvvmsample.models.database.AppDatabase
 import com.cvte.maxhub.mvvmsample.module.VotingRepository
-import com.cvte.maxhub.mvvmsample.viewmodels.SetPeopleNumViewModelFactory
-import com.cvte.maxhub.mvvmsample.viewmodels.SetPeopleNumViewModel
-import kotlinx.coroutines.*
+import com.cvte.maxhub.mvvmsample.viewmodels.SetVotingContentViewModel
+import com.cvte.maxhub.mvvmsample.viewmodels.SetVotingContentViewModelFactory
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
 
-/**
- * 水果列表和水果详情的展示
- */
-class SetPeopleNumFragment : Fragment() {
+class SetVotingContentFragment : Fragment() {
     private val uiScope = CoroutineScope(Dispatchers.Main + SupervisorJob())
-    private lateinit var binding: FragmentSetPeopleNumBinding
-    private val viewModel: SetPeopleNumViewModel by viewModels {
-        SetPeopleNumViewModelFactory(
+    private lateinit var binding: FragmentSetVotingContentBinding
+    private var adapter: SetVotingContentAdapter? = null
+    private val viewModel: SetVotingContentViewModel by viewModels {
+        SetVotingContentViewModelFactory(
             VotingRepository.getInstance(
                 AppDatabase.getInstance(requireContext()).votingDao()
             )
@@ -35,24 +37,14 @@ class SetPeopleNumFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        binding = FragmentSetPeopleNumBinding.inflate(inflater, container, false).apply {
+        binding = FragmentSetVotingContentBinding.inflate(inflater, container, false).apply {
             closeBtn.setOnClickListener {
                 viewModel.delete()
                 activity?.finish()
             }
             up.setOnClickListener {
                 viewModel.saveData()
-                NavHostFragment.findNavController(this@SetPeopleNumFragment).popBackStack()
-            }
-            next.setOnClickListener {
-                viewModel.saveData()
-                NavHostFragment.findNavController(this@SetPeopleNumFragment)
-                    .navigate(R.id.action_setPeopleNumFragment_to_setVotingNumFragment)
-            }
-            numberPicker.setOnValueChangedListener { picker, oldVal, newVal ->
-                viewModel.num.postValue(
-                    newVal
-                )
+                NavHostFragment.findNavController(this@SetVotingContentFragment).popBackStack()
             }
         }
 
@@ -61,17 +53,26 @@ class SetPeopleNumFragment : Fragment() {
         return binding.root
     }
 
+
     private fun subUI() {
         viewModel.votingLive.observe(viewLifecycleOwner) {
-            viewModel.initFunctionBean()
+            viewModel.initFunctionBean(it)
         }
-        viewModel.num.observe(viewLifecycleOwner) { value ->
-            binding.numberPicker.value = value
+
+        viewModel.votingContents.observe(viewLifecycleOwner) {
+            if (adapter == null) {
+                adapter = SetVotingContentAdapter(it)
+                binding.recyclerView.adapter = adapter
+            }else{
+                adapter!!.notifyDataSetChanged()
+            }
         }
     }
+
 
     override fun onDestroy() {
         super.onDestroy()
         uiScope.cancel()
     }
+
 }

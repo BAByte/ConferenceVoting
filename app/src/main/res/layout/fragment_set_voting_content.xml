@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <FrameLayout
+        android:layout_width="@dimen/size_100a"
+        android:layout_height="@dimen/size_60a"
+        android:layout_margin="@dimen/size_2a"
+        android:background="@drawable/card_bg"
+        android:elevation="@dimen/size_1a"
+        tools:context=".HomeFragment">
+
+        <ImageView
+            android:id="@+id/close_btn"
+            android:layout_width="@dimen/size_3a"
+            android:layout_height="@dimen/size_3a"
+            android:layout_gravity="end"
+            android:layout_margin="@dimen/size_2a"
+            android:src="@drawable/ic_close" />
+
+
+        <TextView
+            android:layout_marginStart="@dimen/size_3a"
+            android:layout_marginTop="@dimen/size_3a"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/setPeopleTitle"
+            android:textColor="@color/text_2222222"
+            android:textSize="@dimen/text_size_3a" />
+
+        <LinearLayout
+            android:layout_marginStart="@dimen/size_3a"
+            android:layout_marginTop="@dimen/size_10a"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/up"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/text_up"
+                android:textColor="@color/text_up_next"
+                android:textSize="@dimen/text_size_2a" />
+
+            <TextView
+                android:layout_marginStart="@dimen/size_2a"
+                android:id="@+id/next"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/text_success"
+                android:textColor="@color/text_up_next"
+                android:textSize="@dimen/text_size_2a" />
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:id="@+id/recyclerView"
+            android:layout_marginTop="@dimen/size_14a"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </FrameLayout>
+</layout>

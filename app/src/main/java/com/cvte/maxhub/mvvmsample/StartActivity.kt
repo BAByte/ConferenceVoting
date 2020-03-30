@@ -22,7 +22,7 @@ class StartActivity : AppCompatActivity() {
         super.onResume()
         requestOverlayPermission()
         GlobalScope.launch {
-            AppDatabase.getInstance(this@StartActivity).votingDao().insert(Voting(id = 1L))
+            AppDatabase.getInstance(this@StartActivity).votingDao().insert(Voting(id = 1L,votingContents = mutableListOf()))
         }
 
     }

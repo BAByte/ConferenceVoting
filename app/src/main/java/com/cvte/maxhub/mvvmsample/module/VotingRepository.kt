@@ -3,11 +3,10 @@ package com.cvte.maxhub.mvvmsample.module
 import androidx.lifecycle.LiveData
 import com.cvte.maxhub.mvvmsample.models.data.Voting
 import com.cvte.maxhub.mvvmsample.models.database.VotingDao
-import kotlinx.coroutines.delay
 
 class VotingRepository private constructor(private val votingDao: VotingDao) {
 
-    fun load(): Voting = votingDao.findVoting()
+    fun load(): LiveData<Voting> = votingDao.findVoting()
 
     companion object {
         @Volatile

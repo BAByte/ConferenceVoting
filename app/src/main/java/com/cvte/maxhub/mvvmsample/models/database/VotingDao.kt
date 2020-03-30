@@ -8,7 +8,7 @@ import com.cvte.maxhub.mvvmsample.models.data.Voting
 interface VotingDao {
 
     @Query("SELECT * FROM Voting")
-    fun findVoting(): Voting
+    fun findVoting(): LiveData<Voting>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(voting: Voting)

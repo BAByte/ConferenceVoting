@@ -1,6 +1,7 @@
 package com.cvte.maxhub.mvvmsample.viewmodels
 
 import android.content.Context
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -10,22 +11,29 @@ import kotlinx.coroutines.launch
 
 
 class SetVotingNumViewModel(private val votingRepository: VotingRepository) : ViewModel() {
-    private lateinit var voting: Voting
+    val votingLive: LiveData<Voting> = votingRepository.load()
     val num = MutableLiveData<Int>()
 
-    fun initFunctionBean(context: Context) {
-        voting = votingRepository.load()
-        num.postValue(voting.votingNum)
+    fun initFunctionBean() {
+        votingLive.value?.let {
+            num.postValue(it.votingNum)
+        }
     }
 
     fun saveData() {
         num.value?.let {
-            voting.votingNum = it
-            viewModelScope.launch {
-                votingRepository.saveToDataBase(voting)
+            votingLive.value?.let { voting ->
+                voting.votingNum = it
+                viewModelScope.launch {
+                    votingRepository.saveToDataBase(voting)
+                }
             }
         }
-
     }
 
+    fun delete() {
+        viewModelScope.launch {
+            votingRepository.saveToDataBase(Voting(id = 1L, votingContents = mutableListOf()))
+        }
+    }
 }

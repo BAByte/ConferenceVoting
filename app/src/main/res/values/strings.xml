@@ -5,8 +5,10 @@
     <string name="anonymous">匿名投票</string>
     <string name="location">在场投票</string>
     <string name="home_tips">请组合投票功能</string>
-    <string name="set_people_num_up">上一步</string>
+    <string name="text_up">上一步</string>
+    <string name="text_success">发起投票</string>
     <string name="setPeopleTitle">限制投票人数(0为不限制)</string>
     <string name="setVotingTitle">设置投票选项数目</string>
+    <string name="voting_content_hint">输入15字内容,可以按住右边语音输入哦！</string>
 
 </resources>

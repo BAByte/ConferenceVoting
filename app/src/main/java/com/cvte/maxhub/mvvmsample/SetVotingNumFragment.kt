@@ -38,11 +38,9 @@ class SetVotingNumFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        GlobalScope.launch {
-            viewModel.initFunctionBean(requireContext())
-        }
         binding = FragmentSetVotingNumBinding.inflate(inflater, container, false).apply {
             closeBtn.setOnClickListener {
+                viewModel.delete()
                 activity?.finish()
             }
             up.setOnClickListener {
@@ -54,6 +52,12 @@ class SetVotingNumFragment : Fragment() {
                     newVal
                 )
             }
+            next.setOnClickListener {
+                viewModel.saveData()
+                NavHostFragment.findNavController(this@SetVotingNumFragment)
+                    .navigate(R.id.action_setVotingNumFragment_to_setVotingContentFragment)
+            }
+
         }
 
         subUI()
@@ -63,6 +67,9 @@ class SetVotingNumFragment : Fragment() {
 
 
     private fun subUI() {
+        viewModel.votingLive.observe(viewLifecycleOwner) {
+            viewModel.initFunctionBean()
+        }
         viewModel.num.observe(viewLifecycleOwner) { value ->
             binding.numberPicker.value = value
         }

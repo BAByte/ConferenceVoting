@@ -39,14 +39,10 @@ class HomeFragment : Fragment() {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         subUI()
-        GlobalScope.launch {
-            viewModel.initFunctionBean(requireContext())
-        }
-
 
         binding.apply {
             closeBtn.setOnClickListener {
-                 viewModel.delete()
+                viewModel.delete()
                 activity?.finish()
             }
 
@@ -62,6 +58,9 @@ class HomeFragment : Fragment() {
     }
 
     private fun subUI() {
+        viewModel.votingLive.observe(viewLifecycleOwner) {
+            viewModel.initFunctionBean(requireContext())
+        }
         viewModel.realtime.observe(viewLifecycleOwner) {
             binding.realtime.run {
                 data = viewModel.realtime.value

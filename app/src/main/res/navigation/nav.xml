@@ -28,5 +28,15 @@
     <fragment
         android:id="@+id/setVotingNumFragment"
         android:name="com.cvte.maxhub.mvvmsample.SetVotingNumFragment"
-        android:label="SetVotingNumFragment" />
+        android:label="SetVotingNumFragment" >
+        <action
+            android:id="@+id/action_setVotingNumFragment_to_setVotingContentFragment"
+            app:destination="@id/setVotingContentFragment"
+            app:enterAnim="@anim/scale_in"
+            app:exitAnim="@anim/scale_out"/>
+    </fragment>
+    <fragment
+        android:id="@+id/setVotingContentFragment"
+        android:name="com.cvte.maxhub.mvvmsample.SetVotingContentFragment"
+        android:label="SetVotingContentFragment" />
 </navigation>

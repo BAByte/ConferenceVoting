@@ -1,4 +1,4 @@
-package com.cvte.maxhub.mvvmsample.module
+package com.cvte.maxhub.mvvmsample.models.data
 
 enum class FunctionType(var type : Int) {
     realtime(0x00000002),

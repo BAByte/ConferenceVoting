@@ -8,7 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.cvte.maxhub.mvvmsample.R
 import com.cvte.maxhub.mvvmsample.models.data.Voting
 import com.cvte.maxhub.mvvmsample.module.VotingRepository
-import com.cvte.maxhub.mvvmsample.module.FunctionType
+import com.cvte.maxhub.mvvmsample.models.data.FunctionType
 import com.orhanobut.logger.Logger
 import kotlinx.coroutines.launch
 
@@ -17,10 +17,9 @@ class HomeViewModel(private val votingRepository: VotingRepository) : ViewModel(
     var realtime: MutableLiveData<FunctionBean> = MutableLiveData()
     var anonymous: MutableLiveData<FunctionBean> = MutableLiveData()
     var location: MutableLiveData<FunctionBean> = MutableLiveData()
-    private lateinit var voting: Voting
+    val votingLive: LiveData<Voting> = votingRepository.load()
 
     fun initFunctionBean(context: Context) {
-        voting = votingRepository.load()
         realtime.postValue(
             FunctionBean(
                 FunctionType.realtime.type,
@@ -48,14 +47,14 @@ class HomeViewModel(private val votingRepository: VotingRepository) : ViewModel(
             )
         )
 
-        Logger.d("voting = $voting")
-
     }
 
     private fun isChoice(type: Int): Boolean {
-        Logger.d("isChoice voting = $voting")
-        if ((voting.type and type) != 0)
-            return true
+        votingLive.value?.let {
+            if ((it.type and type) != 0)
+                return true
+        }
+
 
         return false
     }
@@ -75,18 +74,19 @@ class HomeViewModel(private val votingRepository: VotingRepository) : ViewModel(
                 newType = newType or FunctionType.location.type
         }
 
-
-        voting.type = newType
-        Logger.d("voting newtype = $newType")
-        viewModelScope.launch {
-            votingRepository.saveToDataBase(voting)
+        votingLive.value?.let {
+            it.type = newType
+            Logger.d("voting newtype = $newType")
+            viewModelScope.launch {
+                votingRepository.saveToDataBase(it)
+            }
         }
     }
 
-     fun delete() {
-         viewModelScope.launch {
-             votingRepository.saveToDataBase(Voting(id = 1L))
-         }
+    fun delete() {
+        viewModelScope.launch {
+            votingRepository.saveToDataBase(Voting(id = 1L, votingContents = mutableListOf()))
+        }
     }
 
 

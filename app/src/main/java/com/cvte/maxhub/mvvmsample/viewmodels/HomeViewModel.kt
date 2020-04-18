@@ -54,8 +54,6 @@ class HomeViewModel(private val votingRepository: VotingRepository) : ViewModel(
             if ((it.type and type) != 0)
                 return true
         }
-
-
         return false
     }
 

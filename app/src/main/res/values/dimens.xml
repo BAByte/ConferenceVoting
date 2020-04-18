@@ -21,6 +21,7 @@
     <dimen name="size_31a">248dp</dimen>
     <dimen name="size_37a">296dp</dimen>
     <dimen name="size_42a">336dp</dimen>
+    <dimen name="size_50a">400dp</dimen>
     <dimen name="size_60a">480dp</dimen>
     <dimen name="size_64a">512dp</dimen>
     <dimen name="size_100a">800dp</dimen>
@@ -40,5 +41,7 @@
     <dimen name="NumberPickerDivDistance">96dp</dimen>
     <dimen name="dividerThickness">4dp</dimen>
     <dimen name="numberPickerLayoutW">400dp</dimen>
+
+    <dimen name="qr_code_elevation">4dp</dimen>
 
 </resources>

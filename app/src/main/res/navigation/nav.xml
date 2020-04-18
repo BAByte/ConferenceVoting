@@ -13,7 +13,9 @@
             android:id="@+id/action_homeFragment_to_setPeopleNumFragment"
             app:destination="@id/setPeopleNumFragment"
             app:enterAnim="@anim/scale_in"
-            app:exitAnim="@anim/scale_out"/>
+            app:exitAnim="@anim/scale_out"
+            app:popEnterAnim="@anim/scale_in"
+            app:popExitAnim="@anim/scale_out"/>
     </fragment>
     <fragment
         android:id="@+id/setPeopleNumFragment"
@@ -23,7 +25,9 @@
             android:id="@+id/action_setPeopleNumFragment_to_setVotingNumFragment"
             app:destination="@id/setVotingNumFragment"
             app:enterAnim="@anim/scale_in"
-            app:exitAnim="@anim/scale_out"/>
+            app:exitAnim="@anim/scale_out"
+            app:popEnterAnim="@anim/scale_in"
+            app:popExitAnim="@anim/scale_out"/>
     </fragment>
     <fragment
         android:id="@+id/setVotingNumFragment"
@@ -33,10 +37,35 @@
             android:id="@+id/action_setVotingNumFragment_to_setVotingContentFragment"
             app:destination="@id/setVotingContentFragment"
             app:enterAnim="@anim/scale_in"
-            app:exitAnim="@anim/scale_out"/>
+            app:exitAnim="@anim/scale_out"
+            app:popEnterAnim="@anim/scale_in"
+            app:popExitAnim="@anim/scale_out"/>
     </fragment>
     <fragment
         android:id="@+id/setVotingContentFragment"
         android:name="com.cvte.maxhub.mvvmsample.SetVotingContentFragment"
-        android:label="SetVotingContentFragment" />
+        android:label="SetVotingContentFragment" >
+        <action
+            android:id="@+id/action_setVotingContentFragment_to_PieResultFragment"
+            app:destination="@id/pieResultFragment"
+            app:enterAnim="@anim/scale_in"
+            app:exitAnim="@anim/scale_out"
+            app:popEnterAnim="@anim/scale_in"
+            app:popExitAnim="@anim/scale_out"/>
+        <action
+            android:id="@+id/action_setVotingContentFragment_to_barResultFragment"
+            app:destination="@id/barResultFragment"
+            app:enterAnim="@anim/scale_in"
+            app:exitAnim="@anim/scale_out"
+            app:popEnterAnim="@anim/scale_in"
+            app:popExitAnim="@anim/scale_out"/>
+    </fragment>
+    <fragment
+        android:id="@+id/pieResultFragment"
+        android:name="com.cvte.maxhub.mvvmsample.PieResultFragment"
+        android:label="PieResultFragment" />
+    <fragment
+        android:id="@+id/barResultFragment"
+        android:name="com.cvte.maxhub.mvvmsample.BarResultFragment"
+        android:label="BarResultFragment" />
 </navigation>

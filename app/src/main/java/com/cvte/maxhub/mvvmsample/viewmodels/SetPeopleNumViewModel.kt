@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.cvte.maxhub.mvvmsample.models.data.FunctionType
 import com.cvte.maxhub.mvvmsample.models.data.Voting
 import com.cvte.maxhub.mvvmsample.module.VotingRepository
 import kotlinx.coroutines.launch
@@ -35,6 +36,14 @@ class SetPeopleNumViewModel(private val votingRepository: VotingRepository) : Vi
         viewModelScope.launch {
             votingRepository.saveToDataBase(Voting(id = 1L, votingContents = mutableListOf()))
         }
+    }
+
+    fun isRealTime(): Boolean {
+        votingLive.value?.let {
+            if ((it.type and FunctionType.realtime.type) != 0)
+                return true
+        }
+        return false
     }
 
 }

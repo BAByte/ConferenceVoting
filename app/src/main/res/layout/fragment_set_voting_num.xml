@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <FrameLayout
+        android:layout_gravity="center"
         android:layout_width="@dimen/size_100a"
         android:layout_height="@dimen/size_60a"
         android:layout_margin="@dimen/size_2a"

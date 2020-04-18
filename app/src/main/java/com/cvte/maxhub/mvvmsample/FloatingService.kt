@@ -3,10 +3,13 @@ package com.cvte.maxhub.mvvmsample
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.graphics.PixelFormat
+import android.os.Build
 import android.view.*
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleService
+import androidx.lifecycle.Observer
 import androidx.lifecycle.observe
 import com.orhanobut.logger.Logger
 
@@ -15,6 +18,13 @@ class FloatingService : LifecycleService() {
     private lateinit var wManager: WindowManager// 窗口管理者
     private lateinit var mParams: WindowManager.LayoutParams// 窗口的属性
     private lateinit var floatView: View
+    private val observeIsShow = Observer<Boolean> { result ->
+        if (result) {
+            wManager.removeView(floatView)
+        } else {
+            wManager.addView(floatView, mParams)
+        }
+    }
 
 
     @SuppressLint("InflateParams")
@@ -26,13 +36,19 @@ class FloatingService : LifecycleService() {
     }
 
     private fun subscribeUI() {
-        App.isShow.observe(LifecycleOwner { lifecycle }) { result ->
-            if (result) {
-                wManager.removeView(floatView)
-            }else {
+
+        App.isShow.observe(LifecycleOwner { lifecycle }, observeIsShow)
+    }
+
+
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        App.isShow.value?.let {
+            if (it)
                 wManager.addView(floatView, mParams)
-            }
         }
+        Logger.d("service newConfig : $newConfig")
     }
 
 
@@ -57,7 +73,16 @@ class FloatingService : LifecycleService() {
             WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
             PixelFormat.TRANSPARENT
         )
-        mParams.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY// 系统提示window
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+            //安卓7
+            mParams.type = WindowManager.LayoutParams.TYPE_PHONE// 系统提示window
+        } else {
+            //安卓8以上
+            mParams.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY// 系统提示window
+        }
+
+
         mParams.format = PixelFormat.TRANSLUCENT// 支持透明
         // mParams.format = PixelFormat.RGBA_8888;
         mParams.flags =

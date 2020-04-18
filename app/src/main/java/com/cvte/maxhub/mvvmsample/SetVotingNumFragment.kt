@@ -1,5 +1,6 @@
 package com.cvte.maxhub.mvvmsample
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -45,7 +46,7 @@ class SetVotingNumFragment : Fragment() {
             }
             up.setOnClickListener {
                 viewModel.saveData()
-                NavHostFragment.findNavController(this@SetVotingNumFragment).popBackStack()
+                NavHostFragment.findNavController(this@SetVotingNumFragment).navigateUp()
             }
             numberPicker.setOnValueChangedListener { picker, oldVal, newVal ->
                 viewModel.num.postValue(
@@ -75,6 +76,10 @@ class SetVotingNumFragment : Fragment() {
         }
     }
 
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        viewModel.saveData()
+    }
 
     override fun onDestroy() {
         super.onDestroy()

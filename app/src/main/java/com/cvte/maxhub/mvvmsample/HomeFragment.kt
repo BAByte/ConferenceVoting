@@ -1,5 +1,6 @@
 package com.cvte.maxhub.mvvmsample
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -36,7 +37,7 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
+        Logger.d("onCreateView")
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         subUI()
 
@@ -91,8 +92,10 @@ class HomeFragment : Fragment() {
     }
 
 
+
     override fun onDestroy() {
         super.onDestroy()
+        Logger.d("onDestroy")
         uiScope.cancel()
     }
 

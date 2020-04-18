@@ -21,7 +21,7 @@ class SetVotingContentViewModel(private val votingRepository: VotingRepository) 
         when {
             voting.votingContents.isEmpty() -> {
                 for (index in 1..voting.votingNum) {
-                    voting.votingContents.add(VotingContent())
+                    voting.votingContents.add(VotingContent(id = index))
                 }
             }
             voting.votingContents.size < voting.votingNum -> {

@@ -1,5 +1,6 @@
 package com.cvte.maxhub.mvvmsample
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,7 @@ import com.cvte.maxhub.mvvmsample.models.database.AppDatabase
 import com.cvte.maxhub.mvvmsample.module.VotingRepository
 import com.cvte.maxhub.mvvmsample.viewmodels.SetPeopleNumViewModelFactory
 import com.cvte.maxhub.mvvmsample.viewmodels.SetPeopleNumViewModel
+import kotlinx.android.synthetic.main.fragment_set_people_num.*
 import kotlinx.coroutines.*
 
 /**
@@ -42,7 +44,7 @@ class SetPeopleNumFragment : Fragment() {
             }
             up.setOnClickListener {
                 viewModel.saveData()
-                NavHostFragment.findNavController(this@SetPeopleNumFragment).popBackStack()
+                NavHostFragment.findNavController(this@SetPeopleNumFragment).navigateUp()
             }
             next.setOnClickListener {
                 viewModel.saveData()
@@ -64,6 +66,13 @@ class SetPeopleNumFragment : Fragment() {
     private fun subUI() {
         viewModel.votingLive.observe(viewLifecycleOwner) {
             viewModel.initFunctionBean()
+            if (viewModel.isRealTime()) {
+                binding.title.text = resources.getText(R.string.setPeopleTitleLimit)
+                binding.numberPicker.minValue = 1
+            } else {
+                binding.title.text = resources.getText(R.string.setPeopleTitle)
+                binding.numberPicker.minValue = 0
+            }
         }
         viewModel.num.observe(viewLifecycleOwner) { value ->
             binding.numberPicker.value = value

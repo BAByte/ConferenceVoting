@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "cc732a581405038205f1ae5eb5aab576",
+    "identityHash": "54dfa5a40e54d8112c081eabad3390f6",
     "entities": [
       {
         "tableName": "Voting",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `type` INTEGER NOT NULL, `peopleNum` INTEGER NOT NULL, `votingNum` INTEGER NOT NULL, `votingContents` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `type` INTEGER NOT NULL, `peopleNum` INTEGER NOT NULL, `votingNum` INTEGER NOT NULL, `voted` INTEGER NOT NULL, `status` INTEGER NOT NULL, `longitude` REAL NOT NULL, `latitude` REAL NOT NULL, `joinQRCode` TEXT NOT NULL, `downloadQRCode` TEXT NOT NULL, `votingContents` TEXT NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -33,6 +33,42 @@
             "notNull": true
           },
           {
+            "fieldPath": "voted",
+            "columnName": "voted",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "status",
+            "columnName": "status",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "longitude",
+            "columnName": "longitude",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "latitude",
+            "columnName": "latitude",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "joinQRCode",
+            "columnName": "joinQRCode",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "downloadQRCode",
+            "columnName": "downloadQRCode",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
             "fieldPath": "votingContents",
             "columnName": "votingContents",
             "affinity": "TEXT",
@@ -52,7 +88,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'cc732a581405038205f1ae5eb5aab576')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '54dfa5a40e54d8112c081eabad3390f6')"
     ]
   }
 }

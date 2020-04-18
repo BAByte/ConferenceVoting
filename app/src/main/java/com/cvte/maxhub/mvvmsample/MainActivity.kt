@@ -1,10 +1,12 @@
 package com.cvte.maxhub.mvvmsample
 
 
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.cvte.maxhub.mvvmsample.databinding.ActivityMainBinding
+import com.orhanobut.logger.Logger
 
 
 class MainActivity : AppCompatActivity() {
@@ -26,4 +28,8 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        Logger.d("main newConfig : $newConfig")
+    }
 }

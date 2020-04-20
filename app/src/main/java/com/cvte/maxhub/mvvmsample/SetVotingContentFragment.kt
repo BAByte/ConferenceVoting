@@ -75,11 +75,12 @@ class SetVotingContentFragment : Fragment() {
         }
 
         viewModel.votingContents.observe(viewLifecycleOwner) {
-            Logger.d("subUI")
+            Logger.d("subUI $it")
             if (adapter == null) {
                 adapter = SetVotingContentAdapter(it)
                 binding.recyclerView.adapter = adapter
             } else {
+                binding.recyclerView.adapter = adapter
                 adapter!!.notifyDataSetChanged()
             }
         }

@@ -6,6 +6,7 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LiveData
@@ -62,12 +63,12 @@ class BarResultFragment : Fragment() {
 
         binding.apply {
             closeBtn.setOnClickListener {
-                viewModel.deleteVoteFromRemote()
+                context?.let { it1 -> viewModel.deleteVoteFromRemote(it1) }
                 activity?.finish()
             }
 
             cancel.setOnClickListener {
-                viewModel.deleteVoteFromRemote()
+                context?.let { it1 -> viewModel.deleteVoteFromRemote(it1) }
                 NavHostFragment.findNavController(this@BarResultFragment)
                     .popBackStack(R.id.homeFragment, false)
             }
@@ -81,7 +82,7 @@ class BarResultFragment : Fragment() {
         viewModel.votingLive.observe(viewLifecycleOwner) {
             if (!viewModel.isStart) {
                 Logger.d("subUI : $it")
-                viewModel.InitiateVote(it)
+                context?.let { it1 -> viewModel.InitiateVote(it1,it) }
             }
             binding.join = it.joinQRCode
 
@@ -89,9 +90,13 @@ class BarResultFragment : Fragment() {
             if (!isRealTime(it) && it.status) {
                 binding.realtimeTipsLayout.visibility = View.VISIBLE
                 binding.scrollView.visibility = View.GONE
-                binding.title.text = "已参与：${it.voted} 还差：${it.peopleNum - it.voted}"
+                if (it.peopleNum == 0) {
+                    binding.title.text = "已参与：${it.voted}"
+                } else {
+                    binding.title.text = "已参与：${it.voted} 还差：${it.peopleNum - it.voted}"
+                }
                 binding.endVoting.setOnClickListener {
-                    viewModel.endVoteFromRemote()
+                    context?.let { it1 -> viewModel.endVoteFromRemote(it1) }
                 }
                 return@observe
             }
@@ -109,9 +114,14 @@ class BarResultFragment : Fragment() {
                     viewModel.upLoadResultBitmap(it1)}
             }
         }
+        viewModel.isOpenVoteSuccess.observe(viewLifecycleOwner) {
+            if (it == viewModel.fail) {
+                Toast.makeText(context, "发起投票失败", Toast.LENGTH_SHORT).show()
+                NavHostFragment.findNavController(this)
+                    .popBackStack(R.id.setVotingContentFragment, false)
+            }
+        }
     }
-
-
 
     private fun setData(votingContents: List<VotingContent>) {
         val stringBuffer = StringBuffer()
@@ -125,11 +135,11 @@ class BarResultFragment : Fragment() {
             } else {
                 values.add(BarEntry(i.toFloat(), `val`))
             }
-            stringBuffer.append("${Parties.parties[i - 1 % Parties.parties.size]}: ${votingContents[i - 1].content} ; 支持人数: ${votingContents[i - 1].peoples.size}")
+            stringBuffer.append("${Parties.parties[i - 1 % Parties.parties.size]}: ${votingContents[i - 1].content}  支持人数: ${votingContents[i - 1].peoples.size}")
 
             if (!isAnonymous(viewModel.votingLive)) {
                 val peoplesName = votingContents[i - 1].peoples.map { it.name }
-                stringBuffer.append(": $peoplesName")
+                stringBuffer.append(" 支持人: $peoplesName")
             }
 
             stringBuffer.append("\n\n")
@@ -182,7 +192,7 @@ class BarResultFragment : Fragment() {
         view?.setOnKeyListener { v, keyCode, event ->
             if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_BACK) {
                 // 监听到返回按钮点击事件
-                viewModel.deleteVoteFromRemote()
+                context?.let { viewModel.deleteVoteFromRemote(it) }
                 NavHostFragment.findNavController(this)
                     .popBackStack(R.id.homeFragment, false)
                 return@setOnKeyListener true

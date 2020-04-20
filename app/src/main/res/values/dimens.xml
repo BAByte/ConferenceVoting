@@ -43,5 +43,7 @@
     <dimen name="numberPickerLayoutW">400dp</dimen>
 
     <dimen name="qr_code_elevation">4dp</dimen>
+    <dimen name="nav_host_w">832dp</dimen>
+    <dimen name="nav_host_h">832dp</dimen>
 
 </resources>

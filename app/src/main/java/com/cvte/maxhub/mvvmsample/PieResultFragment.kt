@@ -7,6 +7,7 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LiveData
@@ -63,12 +64,12 @@ class PieResultFragment : Fragment() {
 
         binding.apply {
             closeBtn.setOnClickListener {
-                viewModel.deleteVoteFromRemote()
+                context?.let { it1 -> viewModel.deleteVoteFromRemote(it1) }
                 activity?.finish()
             }
 
             cancel.setOnClickListener {
-                viewModel.deleteVoteFromRemote()
+                context?.let { it1 -> viewModel.deleteVoteFromRemote(it1) }
                 NavHostFragment.findNavController(this@PieResultFragment)
                     .popBackStack(R.id.homeFragment, false)
             }
@@ -82,7 +83,7 @@ class PieResultFragment : Fragment() {
         viewModel.votingLive.observe(viewLifecycleOwner) {
             if (!viewModel.isStart) {
                 Logger.d("subUI : $it")
-                viewModel.InitiateVote(it)
+                context?.let { it1 -> viewModel.InitiateVote(it1,it) }
             }
             binding.join = it.joinQRCode
 
@@ -90,9 +91,13 @@ class PieResultFragment : Fragment() {
             if (!isRealTime(it) && it.status) {
                 binding.realtimeTipsLayout.visibility = View.VISIBLE
                 binding.scrollView.visibility = View.GONE
-                binding.title.text = "已参与：${it.voted} 还差：${it.peopleNum - it.voted}"
+                if (it.peopleNum == 0) {
+                    binding.title.text = "已参与：${it.voted}"
+                } else {
+                    binding.title.text = "已参与：${it.voted} 还差：${it.peopleNum - it.voted}"
+                }
                 binding.endVoting.setOnClickListener {
-                    viewModel.endVoteFromRemote()
+                    context?.let { it1 -> viewModel.endVoteFromRemote(it1) }
                 }
                 return@observe
             }
@@ -107,7 +112,16 @@ class PieResultFragment : Fragment() {
                 val bitmap = SimpleUtils.shotScrollView(binding.scrollView)
                 context?.let { it1 ->
                     viewModel.saveResultToLocal(it1, bitmap)
-                    viewModel.upLoadResultBitmap(it1)}
+                    viewModel.upLoadResultBitmap(it1)
+                }
+            }
+        }
+
+        viewModel.isOpenVoteSuccess.observe(viewLifecycleOwner) {
+            if (it == viewModel.fail) {
+                Toast.makeText(context, "发起投票失败", Toast.LENGTH_SHORT).show()
+                NavHostFragment.findNavController(this@PieResultFragment)
+                    .popBackStack(R.id.setVotingContentFragment, false)
             }
         }
     }
@@ -120,19 +134,21 @@ class PieResultFragment : Fragment() {
         // NOTE: The order of the entries when being added to the entries array determines their position around the center of
         // the chart.
         for (i in votingContents.indices) {
-            entries.add(
-                PieEntry(
-                    (votingContents[i].supportNum.toFloat()),
-                    Parties.parties[i % Parties.parties.size],
-                    resources.getDrawable(R.drawable.star, null)
+            if (votingContents[i].supportNum != 0) {
+                entries.add(
+                    PieEntry(
+                        (votingContents[i].supportNum.toFloat()),
+                        Parties.parties[i % Parties.parties.size],
+                        resources.getDrawable(R.drawable.star, null)
+                    )
                 )
-            )
+            }
 
-            stringBuffer.append("${Parties.parties[i % Parties.parties.size]}: ${votingContents[i].content} ; 支持人数: ${votingContents[i].peoples.size}")
+            stringBuffer.append("${Parties.parties[i % Parties.parties.size]}: ${votingContents[i].content}  支持人数: ${votingContents[i].peoples.size}")
 
             if (!isAnonymous(viewModel.votingLive)) {
                 val peoplesName = votingContents[i].peoples.map { it.name }
-                stringBuffer.append(": $peoplesName")
+                stringBuffer.append(" 支持: $peoplesName")
             }
 
             stringBuffer.append("\n\n")
@@ -180,7 +196,7 @@ class PieResultFragment : Fragment() {
         view?.setOnKeyListener { v, keyCode, event ->
             if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_BACK) {
                 // 监听到返回按钮点击事件
-                viewModel.deleteVoteFromRemote()
+                context?.let { viewModel.deleteVoteFromRemote(it) }
                 NavHostFragment.findNavController(this@PieResultFragment)
                     .popBackStack(R.id.homeFragment, false)
                 return@setOnKeyListener true

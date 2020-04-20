@@ -11,8 +11,8 @@
             <fragment
                 android:id="@+id/nav_host"
                 android:name="androidx.navigation.fragment.NavHostFragment"
-                android:layout_width="832dp"
-                android:layout_height="832dp"
+                android:layout_width="@dimen/nav_host_w"
+                android:layout_height="@dimen/nav_host_h"
                 android:layout_gravity="center"
                 app:defaultNavHost="true"
                 app:navGraph="@navigation/nav" />

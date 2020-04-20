@@ -55,7 +55,7 @@ class VotingRepository private constructor(private val votingDao: VotingDao) {
             val response: Response = call.execute()
             val code = JsonParser().parse(response.body?.string()).asJsonObject.get("code").asInt
             return code == RequestInf.SUCCESS
-        } catch (e: IOException) {
+        } catch (e: Exception) {
             e.printStackTrace()
         }
         return false
@@ -73,13 +73,13 @@ class VotingRepository private constructor(private val votingDao: VotingDao) {
             val response: Response = call.execute()
             val code = JsonParser().parse(response.body?.string()).asJsonObject.get("code").asInt
             return code == RequestInf.SUCCESS
-        } catch (e: IOException) {
+        } catch (e: Exception) {
             e.printStackTrace()
         }
         return false
     }
 
-    suspend fun getVoteDataFromRemote() {
+    suspend fun getVoteDataFromRemote(): Boolean {
         val client = OkHttpClient()
         val gson = Gson()
         val request: Request = Request.Builder()
@@ -97,13 +97,16 @@ class VotingRepository private constructor(private val votingDao: VotingDao) {
                 Logger.d("getVoteData = $voting")
                 voting.id = 1
                 saveToDataBase(voting)
+                return true
             }
-        } catch (e: IOException) {
+        } catch (e: Exception) {
             e.printStackTrace()
         }
+
+        return false
     }
 
-    fun deleteVoteFromRemote() {
+    fun deleteVoteFromRemote():Boolean {
         val client = OkHttpClient()
         val request: Request = Request.Builder()
             .url(RequestInf.INITIATE_VOTE)
@@ -112,10 +115,12 @@ class VotingRepository private constructor(private val votingDao: VotingDao) {
         val call: Call = client.newCall(request)
         try {
             val response: Response = call.execute()
-            Logger.d("response = ${response.body?.string()}")
-        } catch (e: IOException) {
+            val code = JsonParser().parse(response.body?.string()).asJsonObject.get("code").asInt
+            return code == RequestInf.SUCCESS
+        } catch (e: Exception) {
             e.printStackTrace()
         }
+        return false
     }
 
     fun upLoadResultBitmap(context: Context) {
@@ -152,9 +157,6 @@ class VotingRepository private constructor(private val votingDao: VotingDao) {
             }
 
         })
-
-
-
     }
 
 }

@@ -66,13 +66,8 @@ class SetPeopleNumFragment : Fragment() {
     private fun subUI() {
         viewModel.votingLive.observe(viewLifecycleOwner) {
             viewModel.initFunctionBean()
-            if (viewModel.isRealTime()) {
-                binding.title.text = resources.getText(R.string.setPeopleTitleLimit)
-                binding.numberPicker.minValue = 1
-            } else {
-                binding.title.text = resources.getText(R.string.setPeopleTitle)
-                binding.numberPicker.minValue = 0
-            }
+            binding.title.text = resources.getText(R.string.setPeopleTitle)
+            binding.numberPicker.minValue = 0
         }
         viewModel.num.observe(viewLifecycleOwner) { value ->
             binding.numberPicker.value = value

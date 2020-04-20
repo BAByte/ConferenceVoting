@@ -279,7 +279,12 @@
 
     <string name="text_cn_sentence">"一座座雪峰插入云霄，峰顶银光闪闪，大大小小的湖泊，像颗颗宝石镶嵌在彩带般的沟谷中。"</string>
     <string name="end_voting">立即结束投票</string>
-
+    <string name="startVoteFail">发起投票失败</string>
+    <string name="support"> 支持:</string>
+    <string name="joined">已参与:</string>
+    <string name="not_join">还差:</string>
+    <string name="cancel_vote_fail">取消投票失败</string>
+    <string name="time_out_fail">暂停投票失败</string>
 
     -
     <string-array name="ise_language_entries">

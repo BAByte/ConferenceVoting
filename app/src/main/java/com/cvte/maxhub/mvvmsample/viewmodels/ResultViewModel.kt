@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.widget.Toast
 import androidx.lifecycle.*
+import com.cvte.maxhub.mvvmsample.R
 import com.cvte.maxhub.mvvmsample.models.data.Voting
 import com.cvte.maxhub.mvvmsample.module.VotingRepository
 import com.cvte.maxhub.mvvmsample.utils.SimpleUtils
@@ -14,7 +15,7 @@ import kotlinx.coroutines.*
 class ResultViewModel(private val votingRepository: VotingRepository) : ViewModel() {
     val votingLive: LiveData<Voting> = votingRepository.load()
     var isStart = false
-    val success = 1
+    private val success = 1
     val fail = 2
     var isOpenVoteSuccess: MutableLiveData<Int> = MutableLiveData(0)
 
@@ -54,7 +55,7 @@ class ResultViewModel(private val votingRepository: VotingRepository) : ViewMode
         GlobalScope.launch(Dispatchers.IO) {
             if (!votingRepository.deleteVoteFromRemote()){
                 viewModelScope.launch {
-                    Toast.makeText(context, "取消投票失败", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, context.getString(R.string.cancel_vote_fail), Toast.LENGTH_SHORT).show()
                 }
             }
             isStart = false
@@ -69,7 +70,7 @@ class ResultViewModel(private val votingRepository: VotingRepository) : ViewMode
                 viewModelScope.cancel()
             } else {
                 viewModelScope.launch {
-                    Toast.makeText(context, "暂停投票失败", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, context.getString(R.string.time_out_fail), Toast.LENGTH_SHORT).show()
                 }
             }
         }

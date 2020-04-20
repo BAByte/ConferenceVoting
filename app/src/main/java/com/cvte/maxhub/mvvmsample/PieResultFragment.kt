@@ -91,11 +91,12 @@ class PieResultFragment : Fragment() {
             if (!isRealTime(it) && it.status) {
                 binding.realtimeTipsLayout.visibility = View.VISIBLE
                 binding.scrollView.visibility = View.GONE
-                if (it.peopleNum == 0) {
-                    binding.title.text = "已参与：${it.voted}"
+                val title: String = if (it.peopleNum == 0) {
+                    getString(R.string.joined) + it.voted
                 } else {
-                    binding.title.text = "已参与：${it.voted} 还差：${it.peopleNum - it.voted}"
+                    getString(R.string.joined)+it.voted+ getString(R.string.not_join)+ (it.peopleNum - it.voted)
                 }
+                binding.title.text = title
                 binding.endVoting.setOnClickListener {
                     context?.let { it1 -> viewModel.endVoteFromRemote(it1) }
                 }
@@ -119,7 +120,7 @@ class PieResultFragment : Fragment() {
 
         viewModel.isOpenVoteSuccess.observe(viewLifecycleOwner) {
             if (it == viewModel.fail) {
-                Toast.makeText(context, "发起投票失败", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, getString(R.string.startVoteFail), Toast.LENGTH_SHORT).show()
                 NavHostFragment.findNavController(this@PieResultFragment)
                     .popBackStack(R.id.setVotingContentFragment, false)
             }
@@ -148,7 +149,7 @@ class PieResultFragment : Fragment() {
 
             if (!isAnonymous(viewModel.votingLive)) {
                 val peoplesName = votingContents[i].peoples.map { it.name }
-                stringBuffer.append(" 支持: $peoplesName")
+                stringBuffer.append("${getString(R.string.support) }$peoplesName")
             }
 
             stringBuffer.append("\n\n")

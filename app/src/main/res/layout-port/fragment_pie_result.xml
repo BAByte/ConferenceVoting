@@ -99,67 +99,66 @@
         </FrameLayout>
 
     </FrameLayout>
-        <LinearLayout android:layout_gravity="bottom"
-            android:orientation="horizontal"
-            android:layout_width="wrap_content"
+        <FrameLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_margin="@dimen/size_2a"
-                android:elevation="@dimen/qr_code_elevation"
-                android:background="@drawable/qrcode_card_bg"
 
+            <LinearLayout
                 android:layout_width="@dimen/size_12a"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_2a"
+                android:background="@drawable/qrcode_card_bg"
+                android:elevation="@dimen/qr_code_elevation"
+                android:orientation="vertical">
 
                 <TextView
-                    android:gravity="center"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
                     android:layout_marginTop="@dimen/size_1a"
+                    android:gravity="center"
+                    android:text="@string/qr_code_tips"
+                    android:textColor="@color/text_2222222"
+                    android:textSize="@dimen/text_size_2a" />
+
+                <ImageView
+                    android:layout_width="@dimen/size_10a"
+                    android:layout_height="@dimen/size_10a"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/size_1a"
+                    android:layout_marginBottom="@dimen/size_1a"
+                    app:imageFromUrl="@{join}" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_gravity="end"
+                android:layout_width="@dimen/size_12a"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_2a"
+                android:background="@drawable/qrcode_card_bg"
+                android:elevation="@dimen/qr_code_elevation"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginTop="@dimen/size_1a"
+                    android:gravity="center"
                     android:text="@string/qr_code_tips_take"
                     android:textColor="@color/text_2222222"
                     android:textSize="@dimen/text_size_2a" />
 
                 <ImageView
-                    android:layout_marginBottom="@dimen/size_1a"
-                    android:layout_marginTop="@dimen/size_1a"
-                    android:layout_gravity="center"
-                    app:imageFromUrl="@{takeResult}"
                     android:layout_width="@dimen/size_10a"
-                    android:layout_height="@dimen/size_10a" />
+                    android:layout_height="@dimen/size_10a"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/size_1a"
+                    android:layout_marginBottom="@dimen/size_1a"
+                    app:imageFromUrl="@{takeResult}" />
             </LinearLayout>
 
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_margin="@dimen/size_2a"
-                android:elevation="@dimen/qr_code_elevation"
-                android:background="@drawable/qrcode_card_bg"
-                android:layout_width="@dimen/size_12a"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:gravity="center"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:layout_marginTop="@dimen/size_1a"
-
-                    android:text="@string/qr_code_tips"
-                    android:textColor="@color/text_2222222"
-                    android:textSize="@dimen/text_size_2a" />
-                <ImageView
-                    android:layout_marginBottom="@dimen/size_1a"
-                    android:layout_marginTop="@dimen/size_1a"
-                    android:layout_gravity="center"
-                    app:imageFromUrl="@{join}"
-                    android:layout_width="@dimen/size_10a"
-                    android:layout_height="@dimen/size_10a" />
-            </LinearLayout>
-
-        </LinearLayout>
+        </FrameLayout>
 
     </LinearLayout>
 </layout>

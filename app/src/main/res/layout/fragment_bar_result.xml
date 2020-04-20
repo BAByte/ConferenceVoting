@@ -20,6 +20,35 @@
         android:layout_gravity="center"
         android:orientation="horizontal">
 
+        <LinearLayout
+            android:layout_gravity="bottom"
+            android:layout_width="@dimen/size_12a"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/size_2a"
+            android:layout_marginBottom="@dimen/size_2a"
+            android:background="@drawable/qrcode_card_bg"
+            android:elevation="@dimen/qr_code_elevation"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginTop="@dimen/size_1a"
+                android:gravity="center"
+                android:text="@string/qr_code_tips"
+                android:textColor="@color/text_2222222"
+                android:textSize="@dimen/text_size_2a" />
+
+            <ImageView
+                android:layout_width="@dimen/size_10a"
+                android:layout_height="@dimen/size_10a"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/size_a"
+                android:layout_marginBottom="@dimen/size_a"
+                app:imageFromUrl="@{join}" />
+        </LinearLayout>
+
         <FrameLayout
             android:layout_width="@dimen/size_100a"
             android:layout_height="@dimen/size_60a"
@@ -102,18 +131,14 @@
 
         </FrameLayout>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:orientation="vertical">
 
             <LinearLayout
+                android:layout_gravity="bottom"
                 android:layout_width="@dimen/size_12a"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/size_2a"
+                android:layout_marginStart="@dimen/size_2a"
+                android:layout_marginBottom="@dimen/size_2a"
                 android:background="@drawable/qrcode_card_bg"
-
                 android:elevation="@dimen/qr_code_elevation"
                 android:orientation="vertical">
 
@@ -131,40 +156,12 @@
                     android:layout_width="@dimen/size_10a"
                     android:layout_height="@dimen/size_10a"
                     android:layout_gravity="center"
-                    android:layout_marginTop="@dimen/size_1a"
-                    android:layout_marginBottom="@dimen/size_1a"
+                    android:layout_marginTop="@dimen/size_a"
+                    android:layout_marginBottom="@dimen/size_a"
                     app:imageFromUrl="@{takeResult}" />
             </LinearLayout>
 
 
-            <LinearLayout
-                android:layout_width="@dimen/size_12a"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/size_2a"
-                android:background="@drawable/qrcode_card_bg"
-                android:elevation="@dimen/qr_code_elevation"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:layout_marginTop="@dimen/size_1a"
-                    android:gravity="center"
-                    android:text="@string/qr_code_tips"
-                    android:textColor="@color/text_2222222"
-                    android:textSize="@dimen/text_size_2a" />
-
-                <ImageView
-                    android:layout_width="@dimen/size_10a"
-                    android:layout_height="@dimen/size_10a"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="@dimen/size_1a"
-                    android:layout_marginBottom="@dimen/size_1a"
-                    app:imageFromUrl="@{join}" />
-            </LinearLayout>
-
-        </LinearLayout>
 
     </LinearLayout>
 </layout>
